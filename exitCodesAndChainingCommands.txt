@@ -1,0 +1,60 @@
+Practical Bash and Terminal Skills
+
+Part 1: Exit codes and Chaining commands
+
+--------------------
+Exit codes
+--------------------
+
+Take a command
+>> echo "Hello World"
+>> Hello World
+
+Every command has an exit code
+To have a look at exit code
+
+>> echo $?
+>> 0
+
+0 means success exit code
+Non 0 means failed exit code (usually 1, 127 etc)
+
+Try doing cat on a non existent file
+>> cat non-existent-file.txt
+>> cat: non-existent-file.txt: No such file or directory
+
+and then
+>> echo $?
+>> 1 
+This time the command exit code is 1 meaning it failed
+
+
+--------------------
+Chaining Commands
+--------------------
+1. Using ; semicolon
+>> echo "foo"; echo "bar"
+>> foo
+>> bar
+
+; will execute both commands irrespective of exit code
+
+>> cat non-existent-file.txt; echo "bar"
+>> cat: non-existent-file.txt: No such file or directory
+>> bar
+
+2. Using && command
+>> cat non-existent-file.txt; echo "bar"
+>> cat: non-existent-file.txt: No such file or directory
+
+&& command will execute the next command only if the previous command has success (0) exit code
+
+3. Using || command
+>> echo "foo" || echo "bar"
+>> foo
+
+|| command will execute the second command if the first has fail exit code
+
+>> cat non-existent-file.txt || echo "bar"
+>> bar
+
